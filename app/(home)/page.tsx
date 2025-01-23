@@ -1,9 +1,5 @@
-
-
-export default function Home() {
-  return (
-    <div >
-     <h1 className='text-center p-10 h1-bold'>Home Page</h1> 
-    </div>
-  )
+import { HomeCarousel } from '@/components/shared/home/home-carousel'
+import data from '@/lib/data'
+export default async function Page() {
+  return <HomeCarousel items={data.carousels} />
 }
