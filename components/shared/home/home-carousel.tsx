@@ -3,6 +3,7 @@
 import * as React from 'react'
 import Image from 'next/image'
 import Autoplay from 'embla-carousel-autoplay'
+// import useEmblaCarousel from 'embla-carousel-react'
 import {
   Carousel,
   CarouselContent,
@@ -18,9 +19,9 @@ import { ICarousel } from '@/types' */
 
 export function HomeCarousel({ items }: { items: {image:string,title:string,url:string,buttonCaption:string}[] }) {
   const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: true })
+    Autoplay({ delay: 2000, stopOnInteraction: true }) 
   )
-
+  // const plugin = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 2000, stopOnInteraction: true })])
  
 
   return (
