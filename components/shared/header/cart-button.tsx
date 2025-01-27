@@ -19,7 +19,6 @@ export default function CartButton() {
   const isCartSidebarOpen=useCartSidebar()
  /*  const showSidebar = useShowSidebar()
   const t = useTranslations()
-
   const locale = useLocale()  */
   return (
     <Link href='/cart' className='px-1 header-button'>
