@@ -17,7 +17,7 @@
   UserSignUpSchema,
   WebPageInputSchema,
 } from '@/lib/validator' */
-import { ProductInputSchema } from '@/lib/validator'
+import { CartSchema, OrderItemSchema, ProductInputSchema } from '@/lib/validator'
 import { z } from 'zod'
 
 /* export type IReviewInput = z.infer<typeof ReviewInputSchema>
@@ -46,6 +46,8 @@ export type IProductInput = z.infer<typeof ProductInputSchema>
     isPublished: boolean
   }[]
 }
+export type OrderItem = z.infer<typeof OrderItemSchema>
+export type Cart = z.infer<typeof CartSchema>
 // Order
 /*export type IOrderInput = z.infer<typeof OrderInputSchema>
 export type IOrderList = IOrderInput & {

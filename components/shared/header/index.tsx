@@ -10,7 +10,7 @@ import data from '@/lib/data'
 export default async function Header() {
   return (
     <header className='bg-black  text-white'>
-      <div className='px-2'>
+      <div className='px-8 py-6'>
         <div className='flex items-center justify-between'>
           <div className='flex items-center'>
             <Link
@@ -18,10 +18,10 @@ export default async function Header() {
               className='flex items-center header-button font-extrabold text-2xl m-1 '
             >
               <Image
-                src='icons\logo.svg'
+                src='\icons\logo.svg'
                 width={40}
                 height={40}
-                alt={'logo'}
+                alt={'xxxx'}
               />
               {APP_NAME}
             </Link>

@@ -1,6 +1,9 @@
 /* import { auth } from '@/auth'
 import AddToCart from '@/components/shared/product/add-to-cart' */
 import { Card, CardContent } from '@/components/ui/card'
+import AddToCart from '@/components/shared/product/add-to-cart'
+import { generateId, round2 } from '@/lib/utils'
+
 import {
   getProductBySlug,
   getRelatedProductsByCategory,
@@ -128,7 +131,7 @@ export default async function ProductDetails(props: {
                   <div className='text-destructive text-xl'>Out of Stock</div>
                 )}
 
-                {/* {product.countInStock !== 0 && (
+                {product.countInStock !== 0 && (
                   <div className='flex justify-center items-center'>
                     <AddToCart
                       item={{
@@ -146,9 +149,10 @@ export default async function ProductDetails(props: {
                       }}
                     />
                   </div>
-                )} */}
+                )} 
               </CardContent>
             </Card>
+           
           </div>
         </div>
       </section>
