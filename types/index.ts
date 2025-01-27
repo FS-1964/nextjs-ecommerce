@@ -17,7 +17,7 @@
   UserSignUpSchema,
   WebPageInputSchema,
 } from '@/lib/validator' */
-import { CartSchema, OrderItemSchema, ProductInputSchema } from '@/lib/validator'
+import { CartSchema, OrderItemSchema, ProductInputSchema, UserInputSchema, UserSignInSchema } from '@/lib/validator'
 import { z } from 'zod'
 
 /* export type IReviewInput = z.infer<typeof ReviewInputSchema>
@@ -31,7 +31,7 @@ export type IReviewDetails = IReviewInput & {
 export type IProductInput = z.infer<typeof ProductInputSchema>
 
  export type Data = {
- 
+ users: IUserInput[]
   products: IProductInput[]
   
   headerMenus: {
@@ -48,6 +48,8 @@ export type IProductInput = z.infer<typeof ProductInputSchema>
 }
 export type OrderItem = z.infer<typeof OrderItemSchema>
 export type Cart = z.infer<typeof CartSchema>
+export type IUserInput = z.infer<typeof UserInputSchema>
+export type IUserSignIn = z.infer<typeof UserSignInSchema>
 // Order
 /*export type IOrderInput = z.infer<typeof OrderInputSchema>
 export type IOrderList = IOrderInput & {
