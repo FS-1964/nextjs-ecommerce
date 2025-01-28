@@ -11,10 +11,15 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { getSetting } from './setting.actions' */
+import bcrypt from 'bcryptjs'
 import { signIn, signOut} from '@/auth'
-import { IUserSignIn} from '@/types'
+import { IUserSignIn, IUserSignUp} from '@/types'
 import { redirect } from 'next/navigation'
-/* // CREATE
+import { UserSignUpSchema } from '../validator'
+import { connectToDatabase } from '../db'
+import User from '../db/models/user.model'
+import { formatError } from '../utils'
+
 export async function registerUser(userSignUp: IUserSignUp) {
   try {
     const user = await UserSignUpSchema.parseAsync({
@@ -34,6 +39,8 @@ export async function registerUser(userSignUp: IUserSignUp) {
     return { success: false, error: formatError(error) }
   }
 }
+/* // CREATE
+
 
 // DELETE
 
