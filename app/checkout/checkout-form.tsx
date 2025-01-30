@@ -40,6 +40,8 @@ import useCartStore from '@/hooks/use-cart-store'
 // import useSettingStore from '@/hooks/use-setting-store'
 import ProductPrice from '@/components/shared/product/product-price'
 import { APP_NAME, AVAILABLE_DELIVERY_DATES, AVAILABLE_PAYMENT_METHODS, DEFAULT_PAYMENT_METHOD } from '@/lib/constants'
+import { createOrder } from '@/lib/actions/order.actions'
+import { toast } from '@/hooks/use-toast'
 
 const shippingAddressDefaultValues =
   process.env.NODE_ENV === 'development'
@@ -89,7 +91,7 @@ const CheckoutForm = () => {
     setPaymentMethod,
     updateItem,
     removeItem,
-    // clearCart,
+    clearCart,
     setDeliveryDateIndex,
   } = useCartStore()
   const isMounted = useIsMounted()
@@ -121,11 +123,11 @@ const CheckoutForm = () => {
     useState<boolean>(false)
 
   const handlePlaceOrder = async () => {
-   /*  const res = await createOrder({
+    const res = await createOrder({
       items,
       shippingAddress,
       expectedDeliveryDate: calculateFutureDate(
-        availableDeliveryDates[deliveryDateIndex!].daysToDeliver
+        AVAILABLE_DELIVERY_DATES[deliveryDateIndex!].daysToDeliver
       ),
       deliveryDateIndex,
       paymentMethod,
@@ -146,7 +148,7 @@ const CheckoutForm = () => {
       })
       clearCart()
       router.push(`/checkout/${res.data?.orderId}`)
-    } */
+    }
   }
   const handleSelectPaymentMethod = () => {
     setIsAddressSelected(true)

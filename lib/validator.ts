@@ -2,9 +2,9 @@ import { z } from 'zod'
 import { formatNumberWithDecimal } from './utils'
 
 // Common
-/* const MongoId = z
+const MongoId = z
   .string()
-  .regex(/^[0-9a-fA-F]{24}$/, { message: 'Invalid MongoDB ID' }) */
+  .regex(/^[0-9a-fA-F]{24}$/, { message: 'Invalid MongoDB ID' })
 
 const Price = (field: string) =>
   z.coerce
@@ -61,8 +61,16 @@ export const ProductInputSchema = z.object({
     .int()
     .nonnegative('Number of sales must be a non-negative number'),
 })
+export const ShippingAddressSchema = z.object({
+  fullName: z.string().min(1, 'Full name is required'),
+  street: z.string().min(1, 'Address is required'),
+  city: z.string().min(1, 'City is required'),
+  postalCode: z.string().min(1, 'Postal code is required'),
+  province: z.string().min(1, 'Province is required'),
+  phone: z.string().min(1, 'Phone number is required'),
+  country: z.string().min(1, 'Country is required'),
+})
 
-// Order Item
 export const OrderItemSchema = z.object({
   clientId: z.string().min(1, 'clientId is required'),
   product: z.string().min(1, 'Product is required'),
@@ -82,15 +90,45 @@ export const OrderItemSchema = z.object({
   size: z.string().optional(),
   color: z.string().optional(),
 })
-export const ShippingAddressSchema = z.object({
-  fullName: z.string().min(1, 'Full name is required'),
-  street: z.string().min(1, 'Address is required'),
-  city: z.string().min(1, 'City is required'),
-  postalCode: z.string().min(1, 'Postal code is required'),
-  province: z.string().min(1, 'Province is required'),
-  phone: z.string().min(1, 'Phone number is required'),
-  country: z.string().min(1, 'Country is required'),
+export const OrderInputSchema = z.object({
+  user: z.union([
+    MongoId,
+    z.object({
+      name: z.string(),
+      email: z.string().email(),
+    }),
+  ]),
+  items: z
+    .array(OrderItemSchema)
+    .min(1, 'Order must contain at least one item'),
+  shippingAddress: ShippingAddressSchema,
+  paymentMethod: z.string().min(1, 'Payment method is required'),
+  paymentResult: z
+    .object({
+      id: z.string(),
+      status: z.string(),
+      email_address: z.string(),
+      pricePaid: z.string(),
+    })
+    .optional(),
+  itemsPrice: Price('Items price'),
+  shippingPrice: Price('Shipping price'),
+  taxPrice: Price('Tax price'),
+  totalPrice: Price('Total price'),
+  expectedDeliveryDate: z
+    .date()
+    .refine(
+      (value) => value > new Date(),
+      'Expected delivery date must be in the future'
+    ),
+  isDelivered: z.boolean().default(false),
+  deliveredAt: z.date().optional(),
+  isPaid: z.boolean().default(false),
+  paidAt: z.date().optional(),
 })
+// Order Item
+
+
 // Cart
 
 export const CartSchema = z.object({
@@ -157,64 +195,11 @@ export const UserSignUpSchema = UserSignInSchema.extend({
 })
 
 // Order Item
-export const OrderItemSchema = z.object({
-  clientId: z.string().min(1, 'clientId is required'),
-  product: z.string().min(1, 'Product is required'),
-  name: z.string().min(1, 'Name is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  category: z.string().min(1, 'Category is required'),
-  quantity: z
-    .number()
-    .int()
-    .nonnegative('Quantity must be a non-negative number'),
-  countInStock: z
-    .number()
-    .int()
-    .nonnegative('Quantity must be a non-negative number'),
-  image: z.string().min(1, 'Image is required'),
-  price: Price('Price'),
-  size: z.string().optional(),
-  color: z.string().optional(),
-})
+
 
 
 // Order
-export const OrderInputSchema = z.object({
-  user: z.union([
-    MongoId,
-    z.object({
-      name: z.string(),
-      email: z.string().email(),
-    }),
-  ]),
-  items: z
-    .array(OrderItemSchema)
-    .min(1, 'Order must contain at least one item'),
-  shippingAddress: ShippingAddressSchema,
-  paymentMethod: z.string().min(1, 'Payment method is required'),
-  paymentResult: z
-    .object({
-      id: z.string(),
-      status: z.string(),
-      email_address: z.string(),
-      pricePaid: z.string(),
-    })
-    .optional(),
-  itemsPrice: Price('Items price'),
-  shippingPrice: Price('Shipping price'),
-  taxPrice: Price('Tax price'),
-  totalPrice: Price('Total price'),
-  expectedDeliveryDate: z
-    .date()
-    .refine(
-      (value) => value > new Date(),
-      'Expected delivery date must be in the future'
-    ),
-  isDelivered: z.boolean().default(false),
-  deliveredAt: z.date().optional(),
-  isPaid: z.boolean().default(false),
-  paidAt: z.date().optional(),
-})
+
 // Cart
 
 export const CartSchema = z.object({

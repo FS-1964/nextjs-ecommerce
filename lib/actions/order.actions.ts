@@ -1,10 +1,10 @@
 'use server'
 
 /* import { Cart, IOrderList, OrderItem, ShippingAddress } from '@/types'
-import { formatError, round2 } from '../utils'
-import { connectToDatabase } from '../db'
+
+
 import { auth } from '@/auth'
-import { OrderInputSchema } from '../validator'
+
 import Order, { IOrder } from '../db/models/order.model'
 import { revalidatePath } from 'next/cache'
 import { sendAskReviewOrderItems, sendPurchaseReceipt } from '@/emails'
@@ -14,9 +14,13 @@ import Product from '../db/models/product.model'
 import User from '../db/models/user.model'
 import mongoose from 'mongoose'
 import { getSetting } from './setting.actions' */
-import { OrderItem, ShippingAddress} from '@/types'
-import { round2 } from '../utils'
+import { Cart, OrderItem, ShippingAddress} from '@/types'
+import { formatError, round2 } from '../utils'
 import { AVAILABLE_DELIVERY_DATES} from '../constants'
+import { connectToDatabase } from '../db'
+import { auth } from '@/auth'
+import { OrderInputSchema } from '../validator'
+import Order from '../db/models/order.model'
 
 
 
@@ -67,26 +71,6 @@ export const calcDeliveryDateAndPrice = async ({
   }
 }
 
-// CREATE
-/* export const createOrder = async (clientSideCart: Cart) => {
-  try {
-    await connectToDatabase()
-    const session = await auth()
-    if (!session) throw new Error('User not authenticated')
-    // recalculate price and delivery date on the server
-    const createdOrder = await createOrderFromCart(
-      clientSideCart,
-      session.user.id!
-    )
-    return {
-      success: true,
-      message: 'Order placed successfully',
-      data: { orderId: createdOrder._id.toString() },
-    }
-  } catch (error) {
-    return { success: false, message: formatError(error) }
-  }
-}
 export const createOrderFromCart = async (
   clientSideCart: Cart,
   userId: string
@@ -113,6 +97,28 @@ export const createOrderFromCart = async (
   })
   return await Order.create(order)
 }
+
+export const createOrder = async (clientSideCart: Cart) => {
+  try {
+    await connectToDatabase()
+    const session = await auth()
+    if (!session) throw new Error('User not authenticated')
+    // recalculate price and delivery date on the server
+    const createdOrder = await createOrderFromCart(
+      clientSideCart,
+      session.user.id!
+    )
+    return {
+      success: true,
+      message: 'Order placed successfully',
+      data: { orderId: createdOrder._id.toString() },
+    }
+  } catch (error) {
+    return { success: false, message: formatError(error) }
+  }
+}
+// CREATE
+/*
 
 export async function updateOrderToPaid(orderId: string) {
   try {
