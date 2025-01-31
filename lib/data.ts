@@ -1,7 +1,34 @@
-import { Data,IProductInput, IUserInput } from '@/types'
+import { Data, IProductInput, IUserInput } from '@/types'
 import { toSlug } from './utils'
 import bcrypt from 'bcryptjs'
 const products: IProductInput[] = [
+  {
+    name: 'Fariborz saidi',
+    slug: toSlug('Mens'),
+    category: 'T-Shirts',
+    images: ['/images/IMG_FS.jpg'],
+    tags: ['new-arrival'],
+    isPublished: true,
+    price: 21.8,
+    listPrice: 0,
+    brand: 'Nike',
+    avgRating: 4.71,
+    numReviews: 7,
+    ratingDistribution: [
+      { rating: 1, count: 0 },
+      { rating: 2, count: 0 },
+      { rating: 3, count: 0 },
+      { rating: 4, count: 2 },
+      { rating: 5, count: 5 },
+    ],
+    numSales: 9,
+    countInStock: 11,
+    description: 'Live in Vienna 1130 and Peyman Nazem Farokhi is a freind',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+    colors: ['Green', 'Red', 'Black'],
+
+    reviews: [],
+  },
   {
     name: 'Nike Mens Slim-fit Long-Sleeve T-Shirt',
     slug: toSlug('Nike Mens Slim-fit Long-Sleeve T-Shirt'),
@@ -704,7 +731,7 @@ const products: IProductInput[] = [
     colors: ['Green', 'Black', 'Grey'],
 
     reviews: [],
-  }
+  },
 ]
 const users: IUserInput[] = [
   {
@@ -963,7 +990,7 @@ const users: IUserInput[] = [
     emailVerified: false,
   },
 ]
-const data:Data = {
+const data: Data = {
   products,
   users,
   headerMenus: [
@@ -1023,9 +1050,6 @@ const data:Data = {
       isPublished: true,
     },
   ],
- 
-  
-  
 }
 
 export default data

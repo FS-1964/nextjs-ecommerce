@@ -49,3 +49,6 @@ export const AVAILABLE_DELIVERY_DATES = [
     freeShippingMinPrice: 35,
   },
 ]
+export const SENDER_NAME = process.env.SENDER_NAME || 'Admin'
+export const SENDER_EMAIL = process.env.SENDER_EMAIL || 'pfarokhi@outlook.de'
+export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
