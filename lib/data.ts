@@ -6,7 +6,7 @@ const products: IProductInput[] = [
     name: 'Fariborz saidi',
     slug: toSlug('Mens'),
     category: 'T-Shirts',
-    images: ['/images/IMG_FS.jpg'],
+    images: ['/images/p47.jpg'],
     tags: ['new-arrival'],
     isPublished: true,
     price: 21.8,
