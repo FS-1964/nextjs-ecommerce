@@ -1,4 +1,4 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Ecommerce'
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || 'Tengir'
 export const APP_SLOGAN =
   process.env.NEXT_PUBLIC_APP_SLOGAN || 'Smart Ecommerce Store'
 export const APP_DESCRIPTION =
