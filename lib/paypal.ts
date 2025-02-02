@@ -59,6 +59,7 @@ async function generateAccessToken() {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function handleResponse(response: any) {
   if (response.status === 200 || response.status === 201) {
+    console.log(response.status+'  gaaga');
     return response.json()
   }
 
