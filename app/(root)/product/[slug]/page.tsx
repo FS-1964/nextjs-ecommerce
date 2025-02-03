@@ -1,5 +1,5 @@
-/* import { auth } from '@/auth'
-import AddToCart from '@/components/shared/product/add-to-cart' */
+import { auth } from '@/auth'
+// import AddToCart from '@/components/shared/product/add-to-cart' 
 import { Card, CardContent } from '@/components/ui/card'
 import AddToCart from '@/components/shared/product/add-to-cart'
 import { generateId, round2 } from '@/lib/utils'
@@ -16,10 +16,12 @@ import ProductPrice from '@/components/shared/product/product-price'
 import ProductGallery from '@/components/shared/product/product-gallery'
 // import AddToBrowsingHistory from '@/components/shared/product/add-to-browsing-history'
 import { Separator } from '@/components/ui/separator'
-import Rating from '@/components/shared/product/rating'
+// import Rating from '@/components/shared/product/rating'
 import ProductSlider from '@/components/shared/product/product-slider'
 import BrowsingHistoryList from '@/components/shared/browsing-history-list'
 import AddToBrowsingHistory from '@/components/shared/product/add-to-browsing-history'
+import RatingSummary from '@/components/shared/product/rating-summary'
+import ReviewList from './review-list'
 /* import BrowsingHistoryList from '@/components/shared/browsing-history-list'
 import RatingSummary from '@/components/shared/product/rating-summary'
 import ProductSlider from '@/components/shared/product/product-slider'
@@ -51,8 +53,8 @@ export default async function ProductDetails(props: {
   const params = await props.params
 
   const { slug } = params
+  const session = await auth()
 
-  //   const session = await auth()
 
   const product = await getProductBySlug(slug)
 
@@ -79,9 +81,11 @@ export default async function ProductDetails(props: {
               </p>
               <h1 className='font-bold text-lg lg:text-xl'>{product.name}</h1>
               <div className='flex items-center gep-2 '>
-                <span>{product.avgRating.toFixed(1)}</span>
+                {/* <span>{product.avgRating.toFixed(1)}</span>
                 <Rating rating={product.avgRating} />
-                <span>{product.numReviews} ratings</span>
+                <span>{product.numReviews} ratings</span> */}
+                <RatingSummary avgRating={ product.avgRating} numReviews={product.numReviews} 
+                 asPopover ratingDistribution={product.ratingDistribution}/>
               </div>
 
               <Separator />
@@ -155,6 +159,12 @@ export default async function ProductDetails(props: {
            
           </div>
         </div>
+      </section>
+      <section className='mt-10'>
+        <h2 className='h2-bold mb-2' id='reviews'>
+          {'Product.Customer Reviews'}
+        </h2>
+        <ReviewList product={product} userId={session?.user.id} />
       </section>
 
       <section className='mt-10'>
