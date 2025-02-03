@@ -30,7 +30,7 @@ export default function OrderPaymentForm({
   order: IOrder
   paypalClientId: string
   isAdmin: boolean
-  clientSecret: string|null
+  clientSecret: string | null
 }) {
   const router = useRouter()
   const {
@@ -130,7 +130,7 @@ export default function OrderPaymentForm({
                 </PayPalScriptProvider>
               </div>
             )}
-              {!isPaid && paymentMethod === 'Stripe' && clientSecret && (
+            {!isPaid && paymentMethod === 'Stripe' && clientSecret && (
               <Elements
                 options={{
                   clientSecret,
@@ -157,7 +157,9 @@ export default function OrderPaymentForm({
       </CardContent>
     </Card>
   )
-const stripePromise=loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string)
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+  )
   return (
     <main className='max-w-6xl mx-auto'>
       <div className='grid md:grid-cols-4 gap-6'>

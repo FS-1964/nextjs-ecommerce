@@ -32,7 +32,7 @@ const CheckoutPaymentPage = async (props: {
        currency: 'USD',
        metadata: { orderId: order._id },
      })
-     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
      client_secret = paymentIntent.client_secret
    } 
   return (
