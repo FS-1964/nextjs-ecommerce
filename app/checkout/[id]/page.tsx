@@ -4,7 +4,7 @@ import React from 'react'
 import { auth } from '@/auth'
 import { getOrderById } from '@/lib/actions/order.actions'
 import PaymentForm from './payment-form'
-// import Stripe from 'stripe'
+import Stripe from 'stripe'
 //git
 export const metadata = {
   title: 'Payment',
@@ -24,21 +24,22 @@ const CheckoutPaymentPage = async (props: {
 
   const session = await auth()
 
-  // let client_secret = null
-  /* if (order.paymentMethod === 'Stripe' && !order.isPaid) {
+   let client_secret = null
+  if (order.paymentMethod === 'Stripe' && !order.isPaid) {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string)
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(order.totalPrice * 100),
-      currency: 'USD',
-      metadata: { orderId: order._id },
-    })
-    client_secret = paymentIntent.client_secret
-  } */
+     const paymentIntent = await stripe.paymentIntents.create({
+       amount: Math.round(order.totalPrice * 100),
+       currency: 'USD',
+       metadata: { orderId: order._id },
+     })
+     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     client_secret = paymentIntent.client_secret
+   } 
   return (
     <PaymentForm
       order={order}
       paypalClientId={process.env.PAYPAL_CLIENT_ID || 'sb'}
-      // clientSecret={client_secret}
+      clientSecret={client_secret}
       isAdmin={session?.user?.role === 'Admin' || false}
     />
   )
