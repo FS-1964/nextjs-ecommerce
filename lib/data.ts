@@ -989,6 +989,23 @@ const users: IUserInput[] = [
     paymentMethod: 'PayPal',
     emailVerified: false,
   },
+  {
+    name: 'fariborz',
+    email: 'fariborzsaidi@outlook.de',
+    password: bcrypt.hashSync('Asus1964', 5),
+    role: 'User',
+    address: {
+      fullName: 'Anna Smith',
+      street: '106 First Ave',
+      city: 'New York',
+      province: 'NY',
+      postalCode: '10015',
+      country: 'USA',
+      phone: '123-456-7890',
+    },
+    paymentMethod: 'PayPal',
+    emailVerified: false,
+  },
 ]
 const reviews = [
   {
