@@ -59,6 +59,14 @@ export type ShippingAddress = z.infer<typeof ShippingAddressSchema>
 export type IOrderInput = z.infer<typeof OrderInputSchema>
 export type IUserName = z.infer<typeof UserNameSchema>
 // Order
+export type IOrderList = IOrderInput & {
+  _id: string
+  user: {
+    name: string
+    email: string
+  }
+  createdAt: Date
+}
 /*
 export type IOrderList = IOrderInput & {
   _id: string

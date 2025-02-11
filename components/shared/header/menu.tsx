@@ -14,7 +14,7 @@ import { EllipsisVertical } from 'lucide-react'
 /* import LanguageSwitcher from './language-switcher'
 import { useTranslations } from 'next-intl' */
 
-export default function Menu() {
+export default function Menu({ forAdmin = false }: { forAdmin?: boolean }) {
   // const t = useTranslations()
   return (
     <div className='flex justify-end'>
@@ -22,7 +22,8 @@ export default function Menu() {
         {/* <LanguageSwitcher /> */}
         <ThemeSwitcher />
         <UserButton />
-        <CartButton />
+        {forAdmin ? null : <CartButton />}
+       
       </nav>
       <nav className='md:hidden'>
         <Sheet>
