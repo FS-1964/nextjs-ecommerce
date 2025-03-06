@@ -33,6 +33,7 @@ export default async function AuthLayout({
           <Link href='/page/conditions-of-use'>Conditions of Use</Link>
           <Link href='/page/privacy-policy'> Privacy Notice</Link>
           <Link href='/page/help'> Help </Link>
+          <p className='text-gray-400'>{APP_COPYRIGHT}</p>
         </div>
         <div>
           <p className='text-gray-400'>{APP_COPYRIGHT}</p>
