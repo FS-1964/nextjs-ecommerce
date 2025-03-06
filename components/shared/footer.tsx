@@ -25,10 +25,10 @@ export default function Footer() {
           <Link href='/page/help'>help</Link>
         </div>
         <div className='flex justify-center text-sm'>
-          <p> © 2000-2024, {APP_NAME} , inc</p>
+          <p> © 2024-2025, {APP_NAME} , inc</p>
         </div>
         <div className='mt-8 flex justify-center text-sm text-gray-400'>
-          USA, 3224442
+          Developed By Fariborz saidi
         </div>
       </div>
     </footer>
