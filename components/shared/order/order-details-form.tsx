@@ -15,8 +15,9 @@ import {
 } from '@/components/ui/table'
 import { IOrder } from '@/lib/db/models/order.model'
 import { cn, formatDateTime } from '@/lib/utils'
-import { buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import ProductPrice from '../product/product-price'
+import { deleteOrder } from '@/lib/actions/order.actions'
 /* import ActionButton from '../action-button'
 import { deliverOrder, updateOrderToPaid } from '@/lib/actions/order.actions' */
 //gag
@@ -164,7 +165,21 @@ export default function OrderDetailsForm({
                 Pay Order
               </Link>
             )}
-
+              <Button className={cn(buttonVariants(), 'w-full')}
+                      
+                      size={'sm'}
+                      onClick={async () => {
+                         deleteOrder(order._id)
+                      }}
+                     
+                    > Delete Order</Button>
+             {/*  {!isPaid && !isDelivered && ['Stripe', 'PayPal'].includes(paymentMethod) && (
+               <Link
+               className={cn(buttonVariants(), 'w-full')}
+               action={() => deleteOrder(order._id)}
+             /Link>
+            )} 
+ */}
            {/*  {isAdmin && !isPaid && paymentMethod === 'Cash On Delivery' && (
               <ActionButton
                 caption='Mark as paid'

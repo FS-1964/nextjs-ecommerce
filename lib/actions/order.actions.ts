@@ -14,9 +14,9 @@ import Product from '../db/models/product.model'
 import User from '../db/models/user.model'
 import mongoose from 'mongoose'
 import { getSetting } from './setting.actions' */
-import { Cart, OrderItem,IOrderList ,ShippingAddress} from '@/types'
+import { Cart, OrderItem, IOrderList, ShippingAddress } from '@/types'
 import { formatError, round2 } from '../utils'
-import { AVAILABLE_DELIVERY_DATES,PAGE_SIZE} from '../constants'
+import { AVAILABLE_DELIVERY_DATES, PAGE_SIZE } from '../constants'
 import { connectToDatabase } from '../db'
 import { auth } from '@/auth'
 import { OrderInputSchema } from '../validator'
@@ -102,7 +102,7 @@ export async function getOrderSummary(date: DateRange) {
   const topSalesCategories = await getTopSalesCategories(date)
   const topSalesProducts = await getTopSalesProducts(date)
 
- /*  const {
+  /*  const {
     common: { pageSize },
   } = await getSetting() */
   const limit = PAGE_SIZE
@@ -242,7 +242,20 @@ async function getTopSalesCategories(date: DateRange, limit = 5) {
   return result
 }
 
-
+ export async function deleteOrder(id: string) {
+  try { 
+    await connectToDatabase()
+    const res = await Order.findByIdAndDelete(id)
+    if (!res) throw new Error('Order not found')
+    revalidatePath('/admin/orders')
+    return {
+      success: true,
+      message: 'Order deleted successfully',
+    }
+  } catch (error) {
+    return { success: false, message: formatError(error) }
+  }
+} 
 export async function getMyOrders({
   limit,
   page,
@@ -250,7 +263,7 @@ export async function getMyOrders({
   limit?: number
   page: number
 }) {
- /*  const {
+  /*  const {
     common: { pageSize },
   } = await getSetting() */
   limit = limit || PAGE_SIZE
@@ -259,6 +272,7 @@ export async function getMyOrders({
   if (!session) {
     throw new Error('User is not authenticated')
   }
+
   const skipAmount = (Number(page) - 1) * limit
   const orders = await Order.find({
     user: session?.user?.id,
@@ -340,8 +354,8 @@ export async function approvePayPalOrder(
     return { success: false, message: formatError(err) }
   }
 }
- 
- export const calcDeliveryDateAndPrice = async ({
+
+export const calcDeliveryDateAndPrice = async ({
   items,
   shippingAddress,
   deliveryDateIndex,
@@ -433,9 +447,8 @@ export const createOrder = async (clientSideCart: Cart) => {
   } catch (error) {
     return { success: false, message: formatError(error) }
   }
-} 
+}
 // CREATE
-
 
 /* export async function updateOrderToPaid(orderId: string) {
   try {
